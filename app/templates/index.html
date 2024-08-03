@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Sanskrit Transliteration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Sanskrit Transliteration</h1>
+        <form method="post" action="/">
+            <textarea name="devanagari_text" placeholder="Enter Devanagari text here">{{ request.form.get('devanagari_text', '') }}</textarea>
+            <button type="submit">Transliterate</button>
+        </form>
+        {% if transliterated_text %}
+            <h2>Original Sanskrit Text</h2>
+            <pre>{{ original_text }}</pre>
+            <h2>Transliterated Text</h2>
+            <pre>{{ transliterated_text }}</pre>
+            <form method="post" action="/download">
+                <input type="hidden" name="transliterated_text" value="{{ transliterated_text }}">
+                <button type="submit">Download as .txt</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>
